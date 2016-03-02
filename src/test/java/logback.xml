@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="30 seconds">
+ 
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+           	<pattern>%r %.-1p %X [%-5.5t] \(%c{0}.java:%L\) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+   <!-- additivity default true 해당 name의 로그만 -->    
+<!-- 	<logger name="org.springframework" additivity="false"> -->
+<!-- 		<level value="DEBUG"/> -->
+<!-- 		<appender-ref ref="console" /> -->
+<!-- 	</logger> -->
+    
+<!--     <logger name="jdbc.sqlonly"> -->
+<!--         <level value="INFO" /> -->
+<!--         <appender-ref ref="console" /> -->
+<!--     </logger> -->
+ 
+<!--     <logger name="net.sf.log4jdbc"> -->
+<!--         <level value="DEBUG" /> -->
+<!--         <appender-ref ref="console" /> -->
+<!--     </logger> -->
+
+    
+<!--     <logger name="org.springframework" level="INFO"/> -->
+    
+    <!-- ERROR ,WARN , INFO , DEBUG, TRACE -->
+
+    <root level="DEBUG">
+        <appender-ref ref="console" />
+    </root>
+    
+</configuration>
