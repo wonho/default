@@ -1,4 +1,4 @@
-package edu.showcase.system.ux.gson;
+package edu.showcase.system.util.gson;
 
 public class User {
 	

@@ -1,4 +1,6 @@
-package edu.showcase.system.ux.gson;
+package edu.showcase.system.util.gson;
+
+import java.util.List;
 
 /*
 {"menu": {
@@ -13,21 +15,29 @@ package edu.showcase.system.ux.gson;
 	  }
 	}}
 */
-public class MenuItem {
-	
+
+public class Menu {
+
+	String id;
 	String value;
-	String onclick;
+	List<MenuItem> popup;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getValue() {
 		return value;
 	}
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public String getOnclick() {
-		return onclick;
+	public List<MenuItem> getPopup() {
+		return popup;
 	}
-	public void setOnclick(String onclick) {
-		this.onclick = onclick;
+	public void setPopup(List<MenuItem> popup) {
+		this.popup = popup;
 	}
 }
