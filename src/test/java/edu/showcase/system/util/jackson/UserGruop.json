@@ -1,0 +1,9 @@
+{
+  "menuitem": 
+	[
+	   {"username":"Hello",  "email":"hello@email.com",  "credits":"100"},
+	   {"username":"Goodbye","email":"goodbye@email.com","credits":"0"},
+	   {"username":"mlsilva","email":"mlsilva@email.com","credits":"524"},
+	   {"username":"fsouza", "email":"fsouza@email.com", "credits":"1052"}
+	]
+}	
