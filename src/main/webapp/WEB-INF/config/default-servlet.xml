@@ -21,18 +21,18 @@
 	</context:component-scan>
 	
     <mvc:annotation-driven>    
-<!-- 	    <mvc:argument-resolvers> -->
-<!-- 	     	  <beans:bean class="showcase.system.ux.UxWebArgumentResolver"/> -->
-<!-- 	    </mvc:argument-resolvers> -->
+	    <mvc:argument-resolvers>
+	     	  <beans:bean class="edu.showcase.system.ux.UxWebArgumentResolver"/>
+	    </mvc:argument-resolvers>
         
-<!-- 	    	<mvc:message-converters> -->
-<!-- 			        <beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> -->
-<!-- 			        	<beans:property name="supportedMediaTypes" value="application/json"/> -->
-<!-- 			        </beans:bean> -->
-<!-- 			        <beans:bean class="org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter"> -->
-<!-- 			        	<beans:property name="supportedMediaTypes" value="application/xml"/> -->
-<!-- 			        </beans:bean> -->
-<!-- 	        </mvc:message-converters> -->
+	    	<mvc:message-converters>
+			        <beans:bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+			        	<beans:property name="supportedMediaTypes" value="application/json"/>
+			        </beans:bean>
+			        <beans:bean class="org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter">
+			        	<beans:property name="supportedMediaTypes" value="application/xml"/>
+			        </beans:bean>
+	        </mvc:message-converters>
     </mvc:annotation-driven>
     
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
@@ -42,24 +42,27 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-		<beans:property name="order"  value="0" />		
+		<beans:property name="order"  value="2" />		
 	</beans:bean>
 	
-<!-- 	<beans:bean class="showcase.system.view.OrderedCustomBeanMappingViewResolver"> -->
-<!-- 		<beans:property name="viewMapping"> -->
-<!-- 			<beans:map> -->
-<!-- 				<beans:entry key="exception/defaultException" > -->
-<!-- 					<beans:bean class="showcase.system.view.DefaultExceptionView" /> -->
+	<beans:bean class="edu.showcase.system.view.OrderedCustomBeanMappingViewResolver">
+		<beans:property name="defaultView">
+			<beans:bean class="edu.showcase.system.view.CustomDefaultView"/>
+		</beans:property>
+		<beans:property name="viewMapping">
+			<beans:map>
+				<beans:entry key="exception/defaultException">
+					<beans:bean class="edu.showcase.system.view.DefaultExceptionView"/>
+				</beans:entry>
+<!-- 				<beans:entry key="exception/SimpleExceptionView"> -->
+<!-- 					<beans:bean class="edu.showcase.system.view.SimpleExceptionView"/> -->
 <!-- 				</beans:entry> -->
-<!-- 				<beans:entry key="exception/simpleException" > -->
-<!-- 					<beans:bean class="showcase.system.view.SimpleExceptionView" /> -->
-<!-- 				</beans:entry> -->
-<!-- 			</beans:map> -->
-<!-- 		</beans:property> -->
-<!-- 		<beans:property name="defaultView" > -->
-<!-- 			<beans:bean class="showcase.system.view.CustomDefaultView" /> -->
-<!-- 		</beans:property> -->
-<!-- 	</beans:bean> -->
+				<beans:entry key="exception/dataAccessException">
+					<beans:bean class="edu.showcase.system.view.DataAccessExceptionView"/>
+				</beans:entry>
+			</beans:map>
+		</beans:property>
+	</beans:bean>
 	
 	
 <!-- <beans:bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/> -->
@@ -71,27 +74,26 @@
 <!-- 	</beans:bean> -->
 	
 	
-<!-- 
-	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-	    <beans:property  name="mappedHandlers">
-	        <beans:props>
-	            <beans:prop key="DataAccessException">error/dao</beans:prop>
-	            <beans:prop key="BusinessLogicException">error/login</beans:prop>
-	        </beans:props>
-	    </beans:property>
-	    <beans:property name="defaultErrorView" value="error/default"/>
-    </beans:bean>
- -->	
- 
 <!-- 	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> -->
-<!-- 		<beans:property name="defaultErrorView" value="exception/defaultException" /> -->
-<!-- 		<beans:property name="exceptionMappings"> -->
-<!-- 			<beans:props> -->
-<!-- 				<beans:prop key="SimpleException">exception/simpleException</beans:prop> -->
-<!-- 			</beans:props> -->
-<!-- 		</beans:property> -->
-<!-- 		<beans:property name="warnLogCategory" value="CONTROLLER-WARNING" /> -->
-<!-- 	</beans:bean> -->
+<!-- 	    <beans:property  name="mappedHandlers"> -->
+<!-- 	        <beans:props> -->
+<!-- 	            <beans:prop key="DataAccessException">error/dao</beans:prop> -->
+<!-- 	            <beans:prop key="BusinessLogicException">error/login</beans:prop> -->
+<!-- 	        </beans:props> -->
+<!-- 	    </beans:property> -->
+<!-- 	    <beans:property name="defaultErrorView" value="error/default"/> -->
+<!--     </beans:bean> -->
+    
  
+	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<beans:property name="defaultErrorView" value="exception/defaultException" />
+		<beans:property name="exceptionMappings">
+		 	<beans:props>
+		 		<beans:prop key="DataAccessException">exception/dataAccessException</beans:prop>
+		 	</beans:props>
+		</beans:property>
+	</beans:bean>
+ 
+<!-- 		<beans:property name="warnLogCategory" value="CONTROLLER-WARNING" /> -->
 
 </beans:beans>

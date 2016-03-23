@@ -94,8 +94,7 @@ public class JacksonTest {
 		
 //		asObject = builder.asObject(Map.class);
 		
-		builder.expect("menuitem").asObject(List.class);
-		
+		List asObject2 = builder.expect("menuitem").asObject(List.class);
 				
 	}
 	
@@ -137,7 +136,7 @@ public class JacksonTest {
 				e.printStackTrace();
 				throw new RuntimeException(e);								
 			}
-			
+			;
 			logger.debug("readValue {} ",readValue);
 			
 			return readValue;

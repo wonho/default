@@ -26,5 +26,14 @@ public class SimpleService {
 		return userList;
 		
 	}
+	
+	public void getUser2() {
+		
+		List<?> userList = null;
+		
+		userList = dao.queryForList("user.select",  null);			
+		
+		logger.debug("userList {} ",userList);
+	}
 
 }
