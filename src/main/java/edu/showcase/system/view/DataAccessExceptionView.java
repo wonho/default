@@ -1,6 +1,7 @@
 package edu.showcase.system.view;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,8 @@ public class DataAccessExceptionView extends AbstractView implements MessageSour
 			HttpServletResponse response) throws Exception {
 		
 			Map<String,Object> exceptionMap = new HashMap<>();
+			
+			Locale locale = Locale.getDefault();
 			
 			DataAccessException exception = (DataAccessException) model.get("exception");
 			

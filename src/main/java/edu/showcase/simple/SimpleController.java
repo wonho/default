@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
 
 import edu.showcase.simple.service.SimpleService;
 import edu.showcase.system.exception.DaoException;
+import edu.showcase.system.log.LogService;
 import edu.showcase.system.ux.XResponse;
 
 @Controller
@@ -26,20 +27,31 @@ public class SimpleController {
 	@Autowired
 	SimpleService simpleService;
 	
+	@Autowired
+	LogService<String> logService;
+	
 	@RequestMapping("/getuser")
-	public String getUser(@RequestParam Map<String,Object> paramMap) {
+	public String getUser(@RequestParam Map<String,Object> paramMap) throws Exception {
 		
 		logger.debug("@RequestParam {}",paramMap);
 		
-		List<?> userList = simpleService.getUser();
+//		List<?> userList = simpleService.getUser();
 		
-		logger.debug("getUser {} ",userList);
+//		logger.debug("getUser {} ",userList);
+		
+	
+		
+		for(int i=0; i < 1000; i++) {			
+			logService.sendEvent("logservice Test"+i);
+			Thread.sleep(100);
+		}
+		
 		
 		return "user";
 	}
 	
 	/**
-	 * new SimpleExceptionÀ» ´øÁö¸é ¾î¶»°Ô µÉ±î?
+	 * new SimpleException ê³ ë¯¼ í•„ìš”í•¨
 	 * @param paramMap
 	 * @return
 	 */

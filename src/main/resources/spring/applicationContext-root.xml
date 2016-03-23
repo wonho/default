@@ -29,6 +29,8 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
+	<bean id="cycle" class="edu.showcase.system.log.SCycle"/>
+	
 	<!-- 메시지 키 매핑 (국제화, 에러/로그 메시지 등) -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -38,12 +40,20 @@
 			</array>
 		</property>
 		
+		
 		<property name="defaultEncoding" value="UTF-8"/>
 		
 <!-- 		<property name="fallbackToSystemLocale" value="false"/> -->
-<!-- 		<property name="cacheSeconds" value="30"/> -->
-	
+<!-- 		<property name="cacheSeconds" value="30"/> -->	
 	</bean>
-
+	
+	<bean id="logService" class="edu.showcase.system.log.ModumLogService">
+		<property name="batchWriter">
+			<bean class="edu.showcase.system.log.LogWriter" />
+		</property>
+		<property name="latency" value="1000" />
+		<property name="thresold" value="100" />
+	</bean>
+	
 	 
 </beans>
