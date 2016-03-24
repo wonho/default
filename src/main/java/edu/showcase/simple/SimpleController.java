@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.google.common.collect.Maps;
 
 import edu.showcase.simple.service.SimpleService;
-import edu.showcase.system.exception.DaoException;
 import edu.showcase.system.log.LogService;
 import edu.showcase.system.ux.XResponse;
 

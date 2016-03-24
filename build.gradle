@@ -41,7 +41,6 @@ dependencies {
     
     compile 'org.springframework:spring-orm:4.2.4.RELEASE'
     
-    
     compile 'org.hibernate:hibernate-validator:4.2.0.Final'
     
     compile 'javax.servlet:javax.servlet-api:3.1.0'
@@ -104,8 +103,8 @@ eclipse {
    component {
      contextPath = 'spring4'
      facet {
-      facet name: 'jst.web', version: '3.0'  // Servlet Spec Version ÁöÁ¤, ¹Ì ÁöÁ¤½Ã 2.4
-      facet name: 'jst.java', version: '1.7' // Java Version ÁöÁ¤
+      facet name: 'jst.web', version: '3.0'  // Servlet Spec Version ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2.4
+      facet name: 'jst.java', version: '1.7' // Java Version ï¿½ï¿½ï¿½ï¿½
      }
    }
  }

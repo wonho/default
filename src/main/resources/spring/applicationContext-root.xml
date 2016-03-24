@@ -29,8 +29,6 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
-	<bean id="cycle" class="edu.showcase.system.log.SCycle"/>
-	
 	<!-- 메시지 키 매핑 (국제화, 에러/로그 메시지 등) -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
