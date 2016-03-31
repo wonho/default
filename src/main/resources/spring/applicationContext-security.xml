@@ -4,18 +4,45 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:sec="http://www.springframework.org/schema/security"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		                http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-		                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-		                http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-		                ">
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://wwws.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 <!--     <context:property-placeholder location="classpath:app.properties" /> -->
 
-	 
+<!-- 	
+     <sec:http use-expressions="true" auto-config="true" entry-point-ref="authEntryPoint">
+     create-session="never" -> 확인필요
+ -->
+	<sec:http use-expressions="true" auto-config="true" >
+		<sec:csrf disabled="true"/>
+		<sec:intercept-url pattern="/view/login.html" access="hasRole('ROLE_ANONYMOUS')"/>		
+		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+		
+<!-- 		<sec:form-login login-page="/login.do" default-target-url="/main.do" authentication-failure-url="/loginFail.do"/> -->
+<!-- 		<sec:logout logout-success-url="/logout.do"/> -->
+		
+	</sec:http>
+	
+	<sec:authentication-manager>
+<!-- 		<sec:authentication-provider> -->
+<!-- 			<sec:user-service> -->
+<!-- 				<sec:user name="test" password="test" authorities="ROLE_USER"/> -->
+<!-- 			</sec:user-service> -->
+<!-- 		</sec:authentication-provider> -->
+
+		<sec:authentication-provider user-service-ref="userService"/>
+	</sec:authentication-manager>
+	
+	<bean id="authEntryPoint" class="edu.showcase.system.security.AuthentEntryPoint"/>
+	
+	
+	<bean id="userService" class="edu.showcase.auth.service.UserService"/>
+
 </beans>

@@ -6,7 +6,7 @@
 <mapper namespace="user">
  
     <select id="select" resultType="map">
-        SELECT * FROM happyhouse.tbl_user2
+        SELECT * FROM happyhouse.tbl_user where ID ='AAA'
     </select>
     
 </mapper>

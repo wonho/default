@@ -1,9 +1,16 @@
 package edu.showcase.simple;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +41,7 @@ public class SimpleController {
 		
 		logger.debug("@RequestParam {}",paramMap);
 		
-//		List<?> userList = simpleService.getUser();
+		List<?> userList = simpleService.getUser();
 		
 //		logger.debug("getUser {} ",userList);
 		
@@ -92,14 +99,27 @@ public class SimpleController {
 		res.setList("dataList", dataList);
 	}	
 	
-	@RequestMapping("/getex2")
-	public void getEx2(@RequestParam Map<String,Object> paramMap, XResponse res) {
+	
+	
+	@RequestMapping("/getfile")
+	public void getEx2(@RequestParam Map<String,Object> paramMap, HttpServletResponse resp) throws Exception {
 		
-		logger.debug("@RequestParam {}",paramMap);
+		File file = new File("c:/imsi/spring-framework-reference.pdf");
+		InputStream input = new FileInputStream(file);
 		
-		simpleService.getUser2();
 		
+		byte[] byteArray = IOUtils.toByteArray(input);
+		
+		ByteArrayInputStream bis  = new ByteArrayInputStream(byteArray);
+		
+		resp.setContentType("application/octet;charset=utf-8");
+		String fileName= "aaa.pdf";
+		
+		IOUtils.copy(bis, resp.getOutputStream());
 	}
+	
+
+	
 
 }
 

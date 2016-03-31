@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<sec:http pattern="/css/**" security="none" />
+	<sec:http pattern="/flash/**" security="none" />
+	<sec:http pattern="/images/**" security="none" />
+	<sec:http pattern="/js/**" security="none" />
+	<sec:http pattern="/ws/**" security="none" />
+	<sec:http pattern="/mrd/**" security="none" />
+	
+	<sec:http pattern="/cod/sm/cm/getUpdateCmmnCd.do" security="none" />
+	<sec:http pattern="/cod/sm/cm/retrieveAllCmmnList.do" security="none" />
+	<sec:http pattern="/cod/us/usLogin/retrieveUsLoginUsrInfo.do" security="none" />
+	<sec:http pattern="/cod/us/usLogin/retrieveUsLoginUsrInfoByPubCert" security="none" />
+	<sec:http pattern="/cod/us/usUsr/createUsPc.do" security="none" />
+	<sec:http pattern="/cod/rs/fax/processFaxSend.do" security="none" />
+	<sec:http pattern="/upb/nf/xml/reservation/list.do" security="none" />
+	<sec:http pattern="/upb/tr/sign/image.do" security="none" />
+	<sec:http pattern="/sso/ssoInbound.jsp*" security="none" />
+	<sec:http pattern="/rchart/**/*.swf" security="none" />
+	<sec:http request-matcher="regex" pattern="\/cod\/sr\/updownload\/(download|preview)File\.do\?folder=cod(%2F|\/)(manual|stamp|stamp2|stamp3)&amp;callName=([^&amp;]*)\.([^&amp;]*)" security="none" />
+	<sec:http request-matcher-ref="hwpCtrlRequestMatcher" security="none" />
+	<sec:http request-matcher-ref="reportDesignerRequestMatcher" security="none" />
+	
+	<sec:http use-expressions="true" disable-url-rewriting="true" entry-point-ref="authenticationEntryPoint">
+		<sec:intercept-url pattern="/cod/us/usLogin/retrieveUsLoginUsrMenu.do*" access="permitAll" />
+		<sec:intercept-url pattern="/cod/us/uslogin/retrieveUsLoginUsrMenuByPubCert.do*" access="permitAll" />
+		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+
+		<sec:logout logout-url="/logout.do" success-handler-ref="logoutSuccessHandler" />
+	</sec:http>
+	
+	<!-- 로그인 컨트롤러에서 참조하기 위해 빈 이름 노출. -->
+	<sec:authentication-manager alias="authenticationManager">
+		<!-- 인증 처리기 선언 -->
+		<sec:authentication-provider user-service-ref="userDetailsService" />
+	</sec:authentication-manager>
+
+	<bean id="hwpCtrlRequestMatcher" class="org.springframework.security.web.util.ELRequestMatcher"
+		c:el="hasHeader('User-Agent','HwpCtrl')" />
+	
+	<bean id="reportDesignerRequestMatcher" class="org.springframework.security.web.util.ELRequestMatcher"
+		c:el="hasHeader('User-Agent','ReportDesigner')" />
+
+	<bean id="userSwitcher" class="gov.keis.framework.ui.mvc.security.UserSwitcher" 
+		p:userDetailsService-ref="userDetailsService" />
+	
+	<bean id="userDetailsService" class="gov.keis.aeis.system.security.userdetails.AeisUserDetailsService"
+		p:dataSource-ref="dataSource" />	
+
+	<bean id="userAuthenticator" class="gov.keis.framework.ui.mvc.security.UserAuthenticator"
+		p:authenticationManager-ref="authenticationManager" p:sessionAuthenticationStrategy-ref="sessionStrategy" />
+
+	<bean id="sessionStrategy" class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" p:alwaysCreateSession="true" />
+	<bean id="authenticationEntryPoint" class="gov.keis.framework.ui.adaptor.xplatform.security.XplatformAuthenticationEntryPoint" />
+	<bean id="logoutSuccessHandler" class="gov.keis.framework.ui.adaptor.xplatform.security.XplatformLogoutSuccessHandler" />	
+
+	<bean id="shaPasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"
+		c:strength="256" />
+<!-- 	
+	<bean id="sessionStrategy"
+		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy"
+		p:exceptionIfMaximumExceeded="true" p:maximumSessions="1" p:messageSource-ref="messageSource">
+		<constructor-arg name="sessionRegistry" ref="sessionRegistry" />
+	</bean>
+	
+	<bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" />	
+ -->
+</beans>
