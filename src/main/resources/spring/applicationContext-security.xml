@@ -22,11 +22,20 @@
  -->
 	<sec:http use-expressions="true" auto-config="true" >
 		<sec:csrf disabled="true"/>
-		<sec:intercept-url pattern="/view/login.html" access="hasRole('ROLE_ANONYMOUS')"/>		
+
+		<sec:intercept-url pattern="WEB-INF/messages/**" access="hasRole('ROLE_ANONYMOUS')"/>		
+		<sec:intercept-url pattern="/auth/login.do" access="hasRole('ROLE_ANONYMOUS')"/>
+		<sec:intercept-url pattern="/simple/getex.do" access="hasRole('ROLE_ANONYMOUS')"/>
+		
 		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
 		
-<!-- 		<sec:form-login login-page="/login.do" default-target-url="/main.do" authentication-failure-url="/loginFail.do"/> -->
-<!-- 		<sec:logout logout-success-url="/logout.do"/> -->
+<!-- 		<sec:form-login login-page="/auth/login.do" default-target-url="/auth/main.do" authentication-failure-url="/auth/loginFail.do" -->
+<!-- 		 username-parameter="username" password-parameter="password"/> -->
+
+		<sec:form-login login-page="/auth/login.do" default-target-url="/auth/main.do" authentication-failure-url="/auth/loginFail.do"/>
+
+
+		<sec:logout logout-success-url="/auth/logout.do"/>
 		
 	</sec:http>
 	

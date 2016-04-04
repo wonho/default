@@ -43,16 +43,6 @@ public class SimpleController {
 		
 		List<?> userList = simpleService.getUser();
 		
-//		logger.debug("getUser {} ",userList);
-		
-	
-		
-		for(int i=0; i < 1000; i++) {			
-			logService.sendEvent("logservice Test"+i);
-			Thread.sleep(100);
-		}
-		
-		
 		return "user";
 	}
 	

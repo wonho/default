@@ -13,10 +13,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import edu.showcase.auth.service.User;
 
 @Controller
-@RequestMapping("/com")
+@RequestMapping("/auth")
 public class LoginController {
 
 	Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
+	
+	@RequestMapping("/login")
+	public String login(@RequestParam Map<String,Object> paramMap) throws Exception {
+		logger.debug("login : @RequestParam {}",paramMap);
+		
+		return "login/login";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(@RequestParam Map<String,Object> paramMap) throws Exception {
+		logger.debug("logout : @RequestParam {}",paramMap);
+		
+		return null;
+	}
+	
+	@RequestMapping("/loginFail")
+	public String loginFail(@RequestParam Map<String,Object> paramMap) throws Exception {
+		logger.debug("loginFail : @RequestParam {}",paramMap);
+		
+		return null;
+	}
+
 	
 	@RequestMapping("/main")
 	public String processMain(@RequestParam Map<String,Object> paramMap) throws Exception {
