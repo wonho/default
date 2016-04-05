@@ -6,11 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import edu.showcase.auth.service.User;
 
 @Controller
 @RequestMapping("/auth")
@@ -52,13 +51,21 @@ public class LoginController {
 		
 		logger.debug("details {} ",details);
 		
-		User user = (User) authentication.getPrincipal();
-
-		logger.debug("principal {} ",user);
+//		User user = (User) authentication.getPrincipal();
+//
+//		logger.debug("principal {} ",user);
+		
+		Object principal = authentication.getPrincipal();
+		
+		if (principal instanceof UserDetails) {
+			
+		}
+		
 		
 		Object credentials = authentication.getCredentials();
 
 		logger.debug("credentials {} ",credentials);
+		
 		
 		
 		return null;

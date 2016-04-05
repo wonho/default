@@ -83,8 +83,9 @@
 <!-- 	    </beans:property> -->
 <!-- 	    <beans:property name="defaultErrorView" value="error/default"/> -->
 <!--     </beans:bean> -->
+
+	<beans:bean id="exceptionViewFilter"  class="edu.showcase.system.filter.ExceptionViewFilter" />
     
- 
 	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<beans:property name="defaultErrorView" value="exception/defaultException" />
 		<beans:property name="exceptionMappings">

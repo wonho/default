@@ -20,24 +20,32 @@
      <sec:http use-expressions="true" auto-config="true" entry-point-ref="authEntryPoint">
      create-session="never" -> 확인필요
  -->
-	<sec:http use-expressions="true" auto-config="true" >
+<!-- 	intercept-url과 비교 필요
+-->
+     <sec:http pattern="/auth/login.do" security="none"/>		 
+     <sec:http pattern="/auth/loginFail.do" security="none"/>		 
+     
+	
+	
+	<sec:http use-expressions="true" auto-config="true">
 		<sec:csrf disabled="true"/>
-
-		<sec:intercept-url pattern="WEB-INF/messages/**" access="hasRole('ROLE_ANONYMOUS')"/>		
-		<sec:intercept-url pattern="/auth/login.do" access="hasRole('ROLE_ANONYMOUS')"/>
-		<sec:intercept-url pattern="/simple/getex.do" access="hasRole('ROLE_ANONYMOUS')"/>
+		<sec:access-denied-handler ref="accessDenied"/>
 		
+<!-- 		<sec:intercept-url pattern="/auth/login.do" access="hasRole('ROLE_ANONYMOUS')"/> -->
+		
+		<sec:form-login login-page="/auth/login.do" default-target-url="/auth/main.do" authentication-failure-url="/auth/loginFail.do" always-use-default-target="false"
+		  				login-processing-url="/auth/loginProcess.do" username-parameter="username" password-parameter="password"/>
+
 		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
-		
-<!-- 		<sec:form-login login-page="/auth/login.do" default-target-url="/auth/main.do" authentication-failure-url="/auth/loginFail.do" -->
-<!-- 		 username-parameter="username" password-parameter="password"/> -->
-
-		<sec:form-login login-page="/auth/login.do" default-target-url="/auth/main.do" authentication-failure-url="/auth/loginFail.do"/>
-
 
 		<sec:logout logout-success-url="/auth/logout.do"/>
 		
+
+<!-- 		<sec:access-denied-handler error-page="/auth/loginFail.do"/> -->
+		
+		
 	</sec:http>
+
 	
 	<sec:authentication-manager>
 <!-- 		<sec:authentication-provider> -->
@@ -50,6 +58,8 @@
 	</sec:authentication-manager>
 	
 	<bean id="authEntryPoint" class="edu.showcase.system.security.AuthentEntryPoint"/>
+	
+	<bean id="accessDenied" class="edu.showcase.system.security.DeniedHandler"/>
 	
 	
 	<bean id="userService" class="edu.showcase.auth.service.UserService"/>

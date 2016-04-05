@@ -22,7 +22,7 @@ public class AuthentEntryPoint implements AuthenticationEntryPoint{
 		
 		logger.info("{}",arg2.getMessage());
 		
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/com/main.do");
+		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/auth/login.do");
 		
 		requestDispatcher.forward(req, res);
 		
