@@ -43,7 +43,7 @@ public class SimpleController {
 		
 		List<?> userList = simpleService.getUser();
 		
-		return "user";
+		return "login/main";
 	}
 	
 	/**

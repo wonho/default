@@ -68,7 +68,7 @@ public class LoginController {
 		
 		
 		
-		return null;
+		return "login/main";
 		
 	}
 

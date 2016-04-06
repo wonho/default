@@ -16,14 +16,14 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 		
-	<filter>
-		<filter-name>exceptionViewFilter</filter-name>
-		<filter-class>edu.showcase.system.filter.ExceptionViewFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>exceptionViewFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+<!-- 	<filter> -->
+<!-- 		<filter-name>exceptionViewFilter</filter-name> -->
+<!-- 		<filter-class>edu.showcase.system.filter.ExceptionViewFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>exceptionViewFilter</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
 	
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>

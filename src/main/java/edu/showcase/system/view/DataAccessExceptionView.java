@@ -25,7 +25,7 @@ public class DataAccessExceptionView extends AbstractView implements MessageSour
 	public MessageSourceAccessor messageSource;
 	
 	private ObjectMapper mapper = new ObjectMapper();
-	
+
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messageSource = new MessageSourceAccessor(messageSource);

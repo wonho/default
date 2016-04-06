@@ -22,27 +22,25 @@
  -->
 <!-- 	intercept-url과 비교 필요
 -->
-     <sec:http pattern="/auth/login.do" security="none"/>		 
-     <sec:http pattern="/auth/loginFail.do" security="none"/>		 
-     
-	
+    <sec:http pattern="/auth/login.do" security="none"/>		 
 	
 	<sec:http use-expressions="true" auto-config="true">
 		<sec:csrf disabled="true"/>
-		<sec:access-denied-handler ref="accessDenied"/>
 		
 <!-- 		<sec:intercept-url pattern="/auth/login.do" access="hasRole('ROLE_ANONYMOUS')"/> -->
 		
-		<sec:form-login login-page="/auth/login.do" default-target-url="/auth/main.do" authentication-failure-url="/auth/loginFail.do" always-use-default-target="false"
+<!-- 		<sec:form-login login-page="/auth/login.do" default-target-url="/auth/main.do" authentication-failure-url="/auth/loginFail.do" always-use-default-target="false" -->
+<!-- 		  				login-processing-url="/auth/loginProcess.do" username-parameter="username" password-parameter="password"/> -->
+
+		<sec:form-login login-page="/auth/login.do" default-target-url="/auth/main.do" 
+		                authentication-success-handler-ref="loginSucessHandler" authentication-failure-handler-ref="loginFailHandler"
 		  				login-processing-url="/auth/loginProcess.do" username-parameter="username" password-parameter="password"/>
 
 		<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
 
 		<sec:logout logout-success-url="/auth/logout.do"/>
 		
-
 <!-- 		<sec:access-denied-handler error-page="/auth/loginFail.do"/> -->
-		
 		
 	</sec:http>
 
@@ -56,11 +54,14 @@
 
 		<sec:authentication-provider user-service-ref="userService"/>
 	</sec:authentication-manager>
+
+	<bean id="loginSucessHandler" class="edu.showcase.system.security.LoginSucessHandler"/>
+
+	<bean id="loginFailHandler" class="edu.showcase.system.security.LoginFailHandler"/>
 	
 	<bean id="authEntryPoint" class="edu.showcase.system.security.AuthentEntryPoint"/>
 	
 	<bean id="accessDenied" class="edu.showcase.system.security.DeniedHandler"/>
-	
 	
 	<bean id="userService" class="edu.showcase.auth.service.UserService"/>
 
