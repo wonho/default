@@ -64,5 +64,13 @@
 	<bean id="accessDenied" class="edu.showcase.system.security.DeniedHandler"/>
 	
 	<bean id="userService" class="edu.showcase.auth.service.UserService"/>
+	
+<!-- 	<bean id="melong" class="edu.showcase.auth.service.Melong"/> -->
+	
+<!-- 	<bean id="melong" class="edu.showcase.auth.service.Melong" scope="session"> -->
+<!-- 		<aop:scoped-proxy proxy-target-class="true"/> -->
+<!-- 	</bean> -->
+	
+	
 
 </beans>

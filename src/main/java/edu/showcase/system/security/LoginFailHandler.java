@@ -15,6 +15,9 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 
 	Logger logger = LoggerFactory.getLogger(LoginFailHandler.class);
 	
+	/**
+	 * throw Exception을 할 경우 ExceptionResolver에서 처리가 가능한지 확인 필요함
+	 */
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse res, AuthenticationException auth)
 			throws IOException, ServletException {
