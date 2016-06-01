@@ -21,7 +21,7 @@ public class LoginController {
 	Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	
-	@RequestMapping("/login")
+	@RequestMapping(value="/login")
 	public String login(@RequestParam Map<String,Object> paramMap) throws Exception {
 		
 		logger.debug("login : @RequestParam {}",paramMap);
